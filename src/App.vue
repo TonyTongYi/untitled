@@ -1,5 +1,5 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
+  <img alt="Vue logo" src="./assets/zhifou.png">
 <!--  <HelloWorld msg="Hello hello MXY~~~~"/>-->
   <login/>
 </template>
@@ -7,6 +7,7 @@
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
 import login from "@/components/login/login.vue";
+import 'view-ui-plus/dist/styles/viewuiplus.css';
 // import {Login} from "view-ui-plus";
 
 

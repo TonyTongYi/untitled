@@ -1,21 +1,48 @@
 <template>
   <div>
-    <Form :model="form" :rules="rules" ref="loginForm" class="form">
-      <FormItem label="用户名" prop="username">
-        <Input v-model="form.username" placeholder="请输入用户名"/>
+    <Form :model="form" :rules="rules" ref="form" class="form" >
+      <FormItem  prop="user" >
+        <Input type="text" v-model="form.username" placeholder="请输入用户名" style="width: 300px;margin-top: 10px" prefix="ios-person-outline">
+        </Input>
       </FormItem>
-      <FormItem label="密码" prop="password">
-        <Input v-model="form.password" placeholder="请输入密码" type="password"/>
+      <FormItem  prop="password">
+        <Input v-model="form.password" prefix="ios-lock-outline" placeholder="请输入密码" type="password" style="width: 300px">
+        </Input>
       </FormItem>
       <FormItem>
         <Button type="primary" @click="submitForm('loginForm')">登 录</Button>
+        <Button type="primary" @click="signUp('signUp')" style="margin-left: 10px">注 册</Button>
       </FormItem>
     </Form>
   </div>
 </template>
 
+<!--<template>-->
+<!--  <div>-->
+<!--  <Form ref="formInline" :model="form" :rules="rules" class="form">-->
+<!--    <FormItem prop="user">-->
+<!--      <Input type="text" v-model="form.user" placeholder="Username">-->
+<!--        <template >-->
+<!--          <Icon type="ios-person-outline"></Icon>-->
+<!--        </template>-->
+<!--      </Input>-->
+<!--    </FormItem>-->
+<!--    <FormItem prop="password">-->
+<!--      <Input type="password" v-model="form.password" placeholder="Password">-->
+<!--        <template>-->
+<!--          <Icon type="ios-lock-outline"></Icon>-->
+<!--        </template>-->
+<!--      </Input>-->
+<!--    </FormItem>-->
+<!--    <FormItem>-->
+<!--      <Button type="primary" @click="submitForm('loginForm')">Signin</Button>-->
+<!--    </FormItem>-->
+<!--  </Form>-->
+<!--  </div>-->
+<!--</template>-->
+
 <script>
-import { Form, FormItem, Input, Button, Message } from 'view-ui-plus';
+import {Form, FormItem, Input, Button} from 'view-ui-plus';
 export default {
   name: 'zhifou-login',
   components: {
@@ -27,8 +54,8 @@ export default {
   data() {
     return {
       form: {
-        username: '',
-        password: ''
+        userName: '',
+        passWord: ''
       },
       rules: {
         username: [
@@ -41,16 +68,18 @@ export default {
     }
   },
   methods: {
-    submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          // 在这里可以将form表单提交到后端验证用户是否存在，这里暂时用弹出框提示登录成功
-          Message.success('登录成功');
-        } else {
-          Message.error('请填写完整信息');
-          return false;
-        }
-      });
+    submitForm() {
+      this.axios.post("http://localhost:70/zhifou/login",this.form)
+          .then(function (res) {
+            // eslint-disable-next-line no-debugger
+            debugger
+            res.data
+
+            console.log("return")
+          })
+    },
+    signUp(){
+
     }
   }
 }
